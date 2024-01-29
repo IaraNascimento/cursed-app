@@ -22,7 +22,7 @@ function Login() {
 
   return (
     <form onSubmit={(event) => event.preventDefault()}>
-      <h2>Cursed</h2>
+      <h2>Cursed Nights - Gerenciador de Fichas</h2>
 
       <input
         type="email"

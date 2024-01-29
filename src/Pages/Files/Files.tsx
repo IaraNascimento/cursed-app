@@ -6,6 +6,7 @@ import { getDatabase, ref as refDb, onValue, set } from "firebase/database";
 import Logout from "../Logout/Logout";
 import CampaignList from "../../components/CampaignList/CampaignList";
 import CampaignCreate from "../../components/CampaignCreate/CampaignCreate";
+import "./Files.scss";
 
 function Files() {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -42,16 +43,18 @@ function Files() {
 
   return (
     <>
-      <h2>Campanhas</h2>
+      <h2 className="title">Campanhas</h2>
       <CampaignCreate />
       <CampaignList />
       <hr />
-      <h2>Arquivos</h2>
+      <h2 className="title">Arquivos</h2>
       <FileUpload userList={users} userID={userID} />
+      <hr />
       {users.map((user) => (
         <div key={user}>
           <h2>{user}</h2>
           <FilesList email={user} userID={userID} />
+          <hr />
         </div>
       ))}
       <Logout />
