@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  getStorage,
+  listAll,
+  ref,
+} from "firebase/storage";
 import FileSaver from "file-saver";
 
 type FilesListProps = {
@@ -8,25 +14,31 @@ type FilesListProps = {
 
 function FilesList(props: FilesListProps) {
   const [files, setFiles] = useState<Array<any>>([]);
+  const storage = getStorage();
 
   async function downloadFile(file: any) {
     const fileUrl = await getDownloadURL(file);
     FileSaver.saveAs(fileUrl, file.name, { autoBom: true });
   }
 
+  function deleteFile(file: any) {
+    const deleteRef = ref(storage, "/" + props.email + "/" + file.name);
+    deleteObject(deleteRef);
+  }
+
   useEffect(() => {
-    const storage = getStorage();
     listAll(ref(storage, "/" + props.email)).then((result) => {
-      console.log(result.items);
       setFiles(result.items as Array<any>);
     });
   }, []);
+
   return (
     <ul>
       {files?.map((file, index) => (
         <li key={index}>
           <span>{file.name}</span>
           <button onClick={() => downloadFile(file)}>visualizar</button>
+          <button onClick={() => deleteFile(file)}>excluir</button>
         </li>
       ))}
     </ul>
