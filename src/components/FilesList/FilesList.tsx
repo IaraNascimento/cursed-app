@@ -8,6 +8,9 @@ import {
 } from "firebase/storage";
 import FileSaver from "file-saver";
 import { getDatabase, ref as refDb, onValue } from "firebase/database";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./FilesList.scss";
 
 type FilesListProps = {
   email: string;
@@ -53,16 +56,27 @@ function FilesList(props: FilesListProps) {
   }
 
   return (
-    <ul>
+    <table>
+      <tr>
+        <th>Arquivo</th>
+        <th>Campanha</th>
+        <th>Ações</th>
+      </tr>
       {files?.map((file, index) => (
-        <li key={index}>
-          <span>{file.name}</span>
-          <button onClick={() => downloadFile(file)}>visualizar</button>
-          <button onClick={() => deleteFile(file)}>excluir</button>
-          <span>{findFileCampaignRelation(file.name)}</span>
-        </li>
+        <tr key={index}>
+          <th>{file.name}</th>
+          <th>{findFileCampaignRelation(file.name)}</th>
+          <th className="action-col">
+            <button className="secondary" onClick={() => downloadFile(file)}>
+              <FontAwesomeIcon icon={icon({ name: "eye" })} />
+            </button>
+            <button className="secondary" onClick={() => deleteFile(file)}>
+              <FontAwesomeIcon icon={icon({ name: "trash" })} />
+            </button>
+          </th>
+        </tr>
       ))}
-    </ul>
+    </table>
   );
 }
 

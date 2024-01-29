@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ref, getStorage, uploadBytesResumable } from "firebase/storage";
 import { getDatabase, ref as refDb, onValue, set } from "firebase/database";
+import "./FileUpload.scss";
 
 type FileUploadProps = {
   userList: Array<string>;
@@ -9,6 +10,7 @@ type FileUploadProps = {
 
 function FileUpload(props: FileUploadProps) {
   const [fileUploaded, setFileUploaded] = useState<any>(null);
+  const [currentFile, setCurrentFile] = useState<any>(null);
   const [folder, setFolder] = useState<string>("");
   const [campaigns, setCampaigns] = useState<Array<any>>([]);
   const [selectedCampaign, setSelectedCampaign] = useState<string>("");
@@ -52,26 +54,41 @@ function FileUpload(props: FileUploadProps) {
   }, [fileUploaded]);
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
-      <input type="file" onChange={(e) => uploadFile(e)} />
+    <form className="fileUpload" onSubmit={(e) => e.preventDefault()}>
       {props.userList.length > 1 && (
-        <select onChange={(e) => setFolder(e.target.value)}>
-          {props.userList.map((userEmail, index) => (
-            <option key={index} value={userEmail}>
-              {userEmail}
-            </option>
-          ))}
-        </select>
+        <div>
+          <label htmlFor="email">Jogador:</label>
+          <select name="email" onChange={(e) => setFolder(e.target.value)}>
+            {props.userList.map((userEmail, index) => (
+              <option key={index} value={userEmail}>
+                {userEmail}
+              </option>
+            ))}
+          </select>
+        </div>
       )}
       {campaigns.length > 1 && (
-        <select onChange={(e) => setSelectedCampaign(e.target.value)}>
-          {campaigns.map((campaign, index) => (
-            <option key={index} value={campaign}>
-              {campaign}
-            </option>
-          ))}
-        </select>
+        <div>
+          <label htmlFor="campaign">Campanha:</label>
+          <select
+            name="campaign"
+            onChange={(e) => setSelectedCampaign(e.target.value)}
+          >
+            {campaigns.map((campaign, index) => (
+              <option key={index} value={campaign}>
+                {campaign}
+              </option>
+            ))}
+          </select>
+        </div>
       )}
+      <div>
+        <label htmlFor="file">Arquivo</label>
+        <input name="file" type="file" onChange={(e) => setCurrentFile(e)} />
+      </div>
+      <button className="primary" onClick={() => uploadFile(currentFile)}>
+        Subir Arquivo
+      </button>
     </form>
   );
 }

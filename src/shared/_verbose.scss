@@ -2,3 +2,19 @@ $primary: #008000;
 $secondary: white;
 $title: $primary;
 $subtitle: #00C040;
+$background-odd-row: rgba(0, 192, 64, .2);
+
+.title {
+    color: $title;
+    font-size: 26px;
+    text-align: center;
+    margin: 8px 0 24px 0;
+    font-weight: bold;
+}
+
+.subtitle {
+    color: $subtitle;
+    font-size: 18px;
+    margin: 8px 0 24px 0;
+    font-weight: bold;
+}

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import "./Logout.scss";
 
 function Logout() {
   const navigate = useNavigate();
@@ -8,7 +9,11 @@ function Logout() {
     navigate("/");
   }
 
-  return <button onClick={() => logout()}>Logout</button>;
+  return (
+    <button className="secondary logout" onClick={() => logout()}>
+      Logout
+    </button>
+  );
 }
 
 export default Logout;

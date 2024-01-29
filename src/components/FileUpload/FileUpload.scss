@@ -1,0 +1,16 @@
+.fileUpload {
+    display: flex;
+    width: 100%;
+
+    & > *:not(:last-child) {
+        margin-right: 12px;
+    }
+
+    & > * {
+        & > * {
+            display: flex;
+            align-items: center;
+            vertical-align: middle;
+        }
+    }
+}

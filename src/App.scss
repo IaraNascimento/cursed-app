@@ -4,7 +4,11 @@
     font-family: Georgia, 'Times New Roman', Times, serif !important;
 }
 
-input {
+label {
+    display: block;
+}
+
+input, select {
     width: 260px;
     height: 25px;
     outline: none;
@@ -12,6 +16,7 @@ input {
     border-width: 1px;
     padding: 4px 6px;
     text-align: left;
+    box-sizing: content-box;
 }
 
 :root button {
@@ -27,4 +32,11 @@ input {
         background-color: $secondary;
         color: $primary;
     }
+}
+
+.container {
+    max-width: 996px;
+    display: block;
+    margin: 0 auto;
+    padding: 48px;
 }

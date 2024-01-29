@@ -4,11 +4,11 @@ import FilesList from "../../components/FilesList/FilesList";
 import { getStorage, listAll, ref } from "firebase/storage";
 import { getDatabase, ref as refDb, onValue, set } from "firebase/database";
 import Logout from "../Logout/Logout";
-import CampaignList from "../../components/CampaignList/CampaignList";
-import CampaignCreate from "../../components/CampaignCreate/CampaignCreate";
 import "./Files.scss";
+import { useNavigate } from "react-router-dom";
 
 function Files() {
+  const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const userEmail = JSON.parse(localStorage.getItem("user") as string).email;
   const userID = JSON.parse(localStorage.getItem("user") as string)
@@ -43,21 +43,20 @@ function Files() {
 
   return (
     <>
-      <h2 className="title">Campanhas</h2>
-      <CampaignCreate />
-      <CampaignList />
-      <hr />
-      <h2 className="title">Arquivos</h2>
+      {isAdmin && (
+        <button className="primary" onClick={() => navigate("/campaigns")}>
+          Campanhas
+        </button>
+      )}
+      <Logout />
+      <h1 className="title">Arquivos</h1>
       <FileUpload userList={users} userID={userID} />
-      <hr />
       {users.map((user) => (
         <div key={user}>
-          <h2>{user}</h2>
+          <h2 className="subtitle users">{user}</h2>
           <FilesList email={user} userID={userID} />
-          <hr />
         </div>
       ))}
-      <Logout />
     </>
   );
 }

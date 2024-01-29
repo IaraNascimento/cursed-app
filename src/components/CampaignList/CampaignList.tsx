@@ -1,3 +1,5 @@
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getDatabase, ref as refDb, onValue, set } from "firebase/database";
 import { useEffect, useState } from "react";
 
@@ -29,7 +31,7 @@ function CampaignList() {
             className="secondary"
             onClick={() => deleteCampaign(campaign)}
           >
-            Excluir
+            <FontAwesomeIcon icon={icon({ name: "trash" })} />
           </button>
         </li>
       ))}

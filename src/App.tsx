@@ -6,6 +6,7 @@ import Login from "./Pages/Login/Login";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import Files from "./Pages/Files/Files";
 import "./App.scss";
+import Campaigns from "./Pages/Campaigns/Campaigns";
 
 function App() {
   useEffect(() => {
@@ -13,13 +14,16 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/resetpassword" element={<ResetPassword />} />
-        <Route path="/files" element={<Files />} />
-      </Routes>
-    </BrowserRouter>
+    <section className="container">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/files" element={<Files />} />
+          <Route path="/campaigns" element={<Campaigns />} />
+        </Routes>
+      </BrowserRouter>
+    </section>
   );
 }
 
