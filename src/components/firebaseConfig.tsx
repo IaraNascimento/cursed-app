@@ -1,7 +1,5 @@
 import { initializeApp } from "firebase/app";
 
-// TODO: Replace the following with your app's Firebase project configuration
-// See: https://support.google.com/firebase/answer/7015592
 const firebaseConfig = {
   apiKey: "AIzaSyAy3aGh2jlYW7x7LZyS6UECMH1MeV0YO_8",
   authDomain: "cursed-nights.firebaseapp.com",
@@ -14,3 +12,4 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+localStorage.setItem("app", JSON.stringify(app));
