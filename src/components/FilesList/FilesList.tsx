@@ -7,14 +7,20 @@ import {
   ref,
 } from "firebase/storage";
 import FileSaver from "file-saver";
+import { getDatabase, ref as refDb, onValue } from "firebase/database";
 
 type FilesListProps = {
   email: string;
+  userID: string;
 };
 
 function FilesList(props: FilesListProps) {
   const [files, setFiles] = useState<Array<any>>([]);
+  const [fileCampaignRelations, setFileCampaignRelations] = useState<
+    Array<any>
+  >([]);
   const storage = getStorage();
+  const db = getDatabase();
 
   async function downloadFile(file: any) {
     const fileUrl = await getDownloadURL(file);
@@ -30,7 +36,21 @@ function FilesList(props: FilesListProps) {
     listAll(ref(storage, "/" + props.email)).then((result) => {
       setFiles(result.items as Array<any>);
     });
+
+    const query = refDb(db, "/files/" + props.userID);
+    onValue(query, (snapshot) => {
+      const data = snapshot.val();
+      setFileCampaignRelations(data.files);
+    });
   }, []);
+
+  function findFileCampaignRelation(fileName: any) {
+    let campaign = "";
+    fileCampaignRelations.forEach((relation) => {
+      if (relation.file === fileName) campaign = relation.campaign;
+    });
+    return campaign;
+  }
 
   return (
     <ul>
@@ -39,6 +59,7 @@ function FilesList(props: FilesListProps) {
           <span>{file.name}</span>
           <button onClick={() => downloadFile(file)}>visualizar</button>
           <button onClick={() => deleteFile(file)}>excluir</button>
+          <span>{findFileCampaignRelation(file.name)}</span>
         </li>
       ))}
     </ul>

@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { getAuth } from "firebase/auth";
-import { app } from "./components/firebaseConfig";
-import Login from "./User/Login/Login";
-import ResetPassword from "./User/ResetPassword/ResetPassword";
+import { app } from "./firebaseConfig";
+import Login from "./Pages/Login/Login";
+import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import Files from "./Pages/Files/Files";
 
 function App() {

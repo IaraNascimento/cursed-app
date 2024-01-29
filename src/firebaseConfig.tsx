@@ -8,6 +8,7 @@ const firebaseConfig = {
   messagingSenderId: "159479364985",
   appId: "1:159479364985:web:96c16782afa6d46d2b03a8",
   measurementId: "G-XR73Z79KYQ",
+  databaseURL: "https://cursed-nights-default-rtdb.firebaseio.com/",
 };
 
 // Initialize Firebase
