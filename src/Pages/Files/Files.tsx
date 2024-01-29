@@ -4,6 +4,8 @@ import FilesList from "../../components/FilesList/FilesList";
 import { getStorage, listAll, ref } from "firebase/storage";
 import { getDatabase, ref as refDb, onValue, set } from "firebase/database";
 import Logout from "../Logout/Logout";
+import CampaignList from "../../components/CampaignList/CampaignList";
+import CampaignCreate from "../../components/CampaignCreate/CampaignCreate";
 
 function Files() {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -40,6 +42,10 @@ function Files() {
 
   return (
     <>
+      <h2>Campanhas</h2>
+      <CampaignCreate />
+      <CampaignList />
+      <h2>Arquivos</h2>
       <FileUpload userList={users} userID={userID} />
       {users.map((user) => (
         <div key={user}>
