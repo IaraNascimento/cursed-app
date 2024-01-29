@@ -45,6 +45,7 @@ function Files() {
       <h2>Campanhas</h2>
       <CampaignCreate />
       <CampaignList />
+      <hr />
       <h2>Arquivos</h2>
       <FileUpload userList={users} userID={userID} />
       {users.map((user) => (
