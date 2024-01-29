@@ -9,8 +9,6 @@ function Login() {
 
   function login(email: string, password: string) {
     const auth = getAuth();
-    console.log("email", email);
-    console.log("password", password);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;

@@ -8,7 +8,6 @@ import Files from "./Pages/Files/Files";
 
 function App() {
   useEffect(() => {
-    console.log("passei aqui");
     getAuth(app);
   }, []);
 

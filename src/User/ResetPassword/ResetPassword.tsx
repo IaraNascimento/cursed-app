@@ -7,11 +7,9 @@ function ResetPassword() {
 
   function resetPassword(email: string) {
     const auth = getAuth();
-    console.log("email", email);
     signInWithEmailAndPassword(auth, email, "")
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log("user", user);
       })
       .catch((error) => {
         console.log("error", error);
