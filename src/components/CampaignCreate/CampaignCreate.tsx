@@ -28,7 +28,9 @@ function CampaignCreate() {
   return (
     <form onSubmit={(e) => e.preventDefault()}>
       <input type="text" onChange={(e) => setNewCampaign(e.target.value)} />
-      <button onClick={() => handleSubmit(newCampaign)}>Enviar</button>
+      <button className="primary" onClick={() => handleSubmit(newCampaign)}>
+        Criar Campanha
+      </button>
     </form>
   );
 }

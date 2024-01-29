@@ -5,6 +5,7 @@ import { app } from "./firebaseConfig";
 import Login from "./Pages/Login/Login";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import Files from "./Pages/Files/Files";
+import "./App.scss";
 
 function App() {
   useEffect(() => {

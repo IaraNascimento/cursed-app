@@ -25,7 +25,12 @@ function CampaignList() {
       {campaigns?.map((campaign, index) => (
         <li key={index}>
           <span>{campaign}</span>
-          <button onClick={() => deleteCampaign(campaign)}>excluir</button>
+          <button
+            className="secondary"
+            onClick={() => deleteCampaign(campaign)}
+          >
+            Excluir
+          </button>
         </li>
       ))}
     </ul>
