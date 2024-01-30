@@ -6,7 +6,6 @@ import Menu from "../../components/Menu/Menu";
 // import "./Campaigns.scss";
 
 function Users() {
-  const navigate = useNavigate();
   return (
     <>
       <Menu />
