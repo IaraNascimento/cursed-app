@@ -2,6 +2,7 @@ import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getDatabase, ref as refDb, onValue, set } from "firebase/database";
 import { useEffect, useState } from "react";
+import "./CampaignList.scss";
 
 function CampaignList() {
   const [campaigns, setCampaigns] = useState<Array<any>>([]);
@@ -23,19 +24,23 @@ function CampaignList() {
   }
 
   return (
-    <ul>
+    <table>
       {campaigns?.map((campaign, index) => (
-        <li key={index}>
-          <span>{campaign}</span>
-          <button
-            className="secondary"
-            onClick={() => deleteCampaign(campaign)}
-          >
-            <FontAwesomeIcon icon={icon({ name: "trash" })} />
-          </button>
-        </li>
+        <tr key={index}>
+          <td>
+            <span>{campaign}</span>
+          </td>
+          <td className="action-col-2">
+            <button
+              className="secondary"
+              onClick={() => deleteCampaign(campaign)}
+            >
+              <FontAwesomeIcon icon={icon({ name: "trash" })} />
+            </button>
+          </td>
+        </tr>
       ))}
-    </ul>
+    </table>
   );
 }
 export default CampaignList;

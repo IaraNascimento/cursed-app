@@ -26,8 +26,12 @@ function CampaignCreate() {
   }, []);
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
-      <input type="text" onChange={(e) => setNewCampaign(e.target.value)} />
+    <form className="fileUpload" onSubmit={(e) => e.preventDefault()}>
+      <input
+        placeholder="Nome da campanha"
+        type="text"
+        onChange={(e) => setNewCampaign(e.target.value)}
+      />
       <button className="primary" onClick={() => handleSubmit(newCampaign)}>
         Criar Campanha
       </button>
