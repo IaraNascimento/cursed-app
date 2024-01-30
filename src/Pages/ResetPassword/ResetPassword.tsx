@@ -1,36 +1,48 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { toast } from "react-hot-toast";
 
 function ResetPassword() {
   const [email, setEmail] = useState("");
+  const [wasSent, setWasSent] = useState(false);
+  const auth = getAuth();
 
   function resetPassword(email: string) {
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, "")
-      .then((userCredential) => {
-        const user = userCredential.user;
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        toast("Verifique seu email!");
+        setWasSent(true);
       })
       .catch((error) => {
+        toast("Houve um erro");
         console.log("error", error);
       });
   }
 
   return (
-    <form onSubmit={(event) => event.preventDefault()}>
-      <h2>Cursed</h2>
+    <section className="login">
+      <form onSubmit={(event) => event.preventDefault()}>
+        <h1>Cursed Nights</h1>
+        <h2>Gerenciador de Fichas</h2>
 
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        {!wasSent && (
+          <>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-      <button onClick={() => resetPassword(email)}>ResetPassword</button>
-
-      <Link to="/resetpassword">Reset Password</Link>
-    </form>
+            <button className="primary" onClick={() => resetPassword(email)}>
+              Trocar Senha
+            </button>
+          </>
+        )}
+        <Link to="/">Voltar ao login</Link>
+      </form>
+    </section>
   );
 }
 

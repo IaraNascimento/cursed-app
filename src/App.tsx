@@ -7,6 +7,7 @@ import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import Files from "./Pages/Files/Files";
 import "./App.scss";
 import Campaigns from "./Pages/Campaigns/Campaigns";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   useEffect(() => {
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <section className="container">
+      <Toaster />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />

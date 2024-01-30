@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-hot-toast";
 import "./Login.scss";
 
 function Login() {
@@ -17,6 +18,7 @@ function Login() {
         navigate("/files");
       })
       .catch((error) => {
+        toast("Houve um erro");
         console.log("error", error);
       });
   }
