@@ -55,7 +55,7 @@ function FileUpload(props: FileUploadProps) {
 
   return (
     <form className="fileUpload" onSubmit={(e) => e.preventDefault()}>
-      {props.userList.length > 1 && (
+      {props.userList?.length > 1 && (
         <div>
           <label htmlFor="email">Jogador:</label>
           <select name="email" onChange={(e) => setFolder(e.target.value)}>
@@ -67,7 +67,7 @@ function FileUpload(props: FileUploadProps) {
           </select>
         </div>
       )}
-      {campaigns.length > 1 && (
+      {campaigns?.length > 1 && (
         <div>
           <label htmlFor="campaign">Campanha:</label>
           <select

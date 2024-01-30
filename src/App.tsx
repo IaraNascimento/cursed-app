@@ -8,6 +8,8 @@ import Files from "./Pages/Files/Files";
 import "./App.scss";
 import Campaigns from "./Pages/Campaigns/Campaigns";
 import { Toaster } from "react-hot-toast";
+import AdminGuard from "./guards/AdminGuard/AdminGuard";
+import LoggedGuard from "./guards/LoggedGuard/LoggedGuard";
 
 function App() {
   useEffect(() => {
@@ -21,8 +23,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/resetpassword" element={<ResetPassword />} />
-          <Route path="/files" element={<Files />} />
-          <Route path="/campaigns" element={<Campaigns />} />
+          <Route element={<LoggedGuard />}>
+            <Route path="/files" element={<Files />} />
+          </Route>
+          <Route element={<AdminGuard />}>
+            <Route path="/campaigns" element={<Campaigns />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </section>
