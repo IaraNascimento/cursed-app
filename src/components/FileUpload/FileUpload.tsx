@@ -38,7 +38,12 @@ function FileUpload(props: FileUploadProps) {
       );
       console.log(selectedCampaigns);
       set(query, {
-        files: [{ campaigns: selectedCampaigns, file: userUploadRef.name }],
+        files: [
+          {
+            campaigns: selectedCampaigns,
+            file: props.userID + "/" + userUploadRef.name,
+          },
+        ],
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

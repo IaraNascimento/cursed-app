@@ -44,7 +44,7 @@ function FilesList(props: FilesListProps) {
     const query = refDb(db, "/files/" + props.userID);
     onValue(query, (snapshot) => {
       const data = snapshot.val();
-      setFileCampaignRelations(data.files);
+      if (data) setFileCampaignRelations(data.files);
     });
   }, []);
 
