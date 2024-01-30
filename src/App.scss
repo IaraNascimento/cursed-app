@@ -38,5 +38,13 @@ input, select {
     max-width: 996px;
     display: block;
     margin: 0 auto;
-    padding: 48px;
+    position: relative;
+
+    @media (max-width: 996px) {
+        padding: 16px;
+    }
+
+    @media (min-width: 997px) {
+        padding: 48px;
+    }
 }

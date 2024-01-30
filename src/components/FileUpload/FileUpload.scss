@@ -13,4 +13,13 @@
             vertical-align: middle;
         }
     }
+
+    @media (max-width: 996px) {
+        flex-direction: column;
+        & > * {
+            & > * {
+                width: 100%;
+            }
+        }
+    }
 }

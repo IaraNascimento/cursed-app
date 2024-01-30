@@ -64,16 +64,16 @@ function FilesList(props: FilesListProps) {
       </tr>
       {files?.map((file, index) => (
         <tr key={index}>
-          <th>{file.name}</th>
-          <th>{findFileCampaignRelation(file.name)}</th>
-          <th className="action-col">
+          <td>{file.name}</td>
+          <td>{findFileCampaignRelation(file.name)}</td>
+          <td className="action-col">
             <button className="secondary" onClick={() => downloadFile(file)}>
               <FontAwesomeIcon icon={icon({ name: "eye" })} />
             </button>
             <button className="secondary" onClick={() => deleteFile(file)}>
               <FontAwesomeIcon icon={icon({ name: "trash" })} />
             </button>
-          </th>
+          </td>
         </tr>
       ))}
     </table>

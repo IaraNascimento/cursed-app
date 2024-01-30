@@ -2,18 +2,32 @@
 
 table {
     border-collapse: collapse;
-    width: 100%;
+    overflow-x: auto;
+    
+    @media (max-width: 580px) {
+        display: inline-block;
+        width: calc(100vw - 32px);
+    }
+
+    @media (min-width: 581px) and (max-width: 996px) {
+        display: inline-table;
+    }
+
+    @media (min-width: 997px) {
+        display: table;
+        width: 100%;
+    }
+
+    & > :nth-child(even) {
+        background-color: $background-odd-row;
+    }
 }
   
 td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
-    max-width: 320px;
-}
-  
-tr:nth-child(even) {
-    background-color: $background-odd-row;
+    word-wrap: break-word;
 }
 
 .action-col {
