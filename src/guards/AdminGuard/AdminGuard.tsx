@@ -14,9 +14,9 @@ const AdminGuard = () => {
       onValue(query, (snapshot) => {
         const data = snapshot.val();
         if (!data) {
-          set(query, { role: "user" });
+          set(query, { role: "jogador" });
           setContent(<Navigate to="/" />);
-        } else if (data.role === "admin") {
+        } else if (data.role === "mestre") {
           setContent(<Outlet />);
         } else {
           setContent(<Navigate to="/" />);

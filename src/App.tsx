@@ -10,6 +10,7 @@ import Campaigns from "./Pages/Campaigns/Campaigns";
 import { Toaster } from "react-hot-toast";
 import AdminGuard from "./guards/AdminGuard/AdminGuard";
 import LoggedGuard from "./guards/LoggedGuard/LoggedGuard";
+import Users from "./Pages/Users/Users";
 
 function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ function App() {
           </Route>
           <Route element={<AdminGuard />}>
             <Route path="/campaigns" element={<Campaigns />} />
+            <Route path="/users" element={<Users />} />
           </Route>
         </Routes>
       </BrowserRouter>

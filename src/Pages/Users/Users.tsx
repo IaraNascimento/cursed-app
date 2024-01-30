@@ -1,10 +1,10 @@
 import Logout from "../Logout/Logout";
-import CampaignList from "../../components/CampaignList/CampaignList";
-import CampaignCreate from "../../components/CampaignCreate/CampaignCreate";
 import { useNavigate } from "react-router-dom";
+import UsersList from "../../components/UsersList/UsersList";
+import UserCreate from "../../components/UserCreate/UserCreate";
 // import "./Campaigns.scss";
 
-function Campaigns() {
+function Users() {
   const navigate = useNavigate();
   return (
     <>
@@ -18,11 +18,11 @@ function Campaigns() {
         Usuários
       </button>
       <Logout />
-      <h2 className="title">Campanhas</h2>
-      <CampaignCreate />
-      <CampaignList />
+      <h2 className="title">Usuários</h2>
+      <UserCreate />
+      <UsersList />
     </>
   );
 }
 
-export default Campaigns;
+export default Users;

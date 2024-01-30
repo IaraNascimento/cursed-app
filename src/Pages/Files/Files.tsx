@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import FileUpload from "../../components/FileUpload/FileUpload";
 import FilesList from "../../components/FilesList/FilesList";
-import { getStorage, listAll, ref } from "firebase/storage";
 import { getDatabase, ref as refDb, onValue, set } from "firebase/database";
 import Logout from "../Logout/Logout";
 import "./Files.scss";
@@ -14,7 +13,6 @@ function Files() {
   const userID = JSON.parse(localStorage.getItem("user") as string)
     .uid as string;
   const [users, setUsers] = useState<Array<string>>([userEmail]);
-  const storage = getStorage();
   const db = getDatabase();
 
   useEffect(() => {
@@ -22,31 +20,36 @@ function Files() {
     onValue(query, (snapshot) => {
       const data = snapshot.val();
       if (!data) {
-        set(query, { role: "user" });
-      } else if (data.role === "admin") {
+        set(query, { role: "jogador" });
+      } else if (data.role === "mestre") {
         setIsAdmin(true);
+        const queryUsers = refDb(db, "users");
+        onValue(queryUsers, (snapshot) => {
+          const data = snapshot.val();
+          const userArray: string[] = [];
+          Object.keys(data).forEach((value) => {
+            userArray.push(data[value].email);
+          });
+          setUsers(userArray);
+        });
       }
     });
   }, []);
 
-  useEffect(() => {
-    if (isAdmin) {
-      listAll(ref(storage, "/")).then((result: any) => {
-        const userList = result.prefixes.map((user: any) => user.name);
-        if (!userList.includes(userEmail)) {
-          userList.push(userEmail);
-        }
-        setUsers(userList);
-      });
-    }
-  }, [isAdmin]);
-
   return (
     <>
+      <button className="primary" onClick={() => navigate("/files")}>
+        Arquivos
+      </button>
       {isAdmin && (
-        <button className="primary" onClick={() => navigate("/campaigns")}>
-          Campanhas
-        </button>
+        <>
+          <button className="primary" onClick={() => navigate("/campaigns")}>
+            Campanhas
+          </button>
+          <button className="primary" onClick={() => navigate("/users")}>
+            Usuários
+          </button>
+        </>
       )}
       <Logout />
       <h1 className="title">Arquivos</h1>
