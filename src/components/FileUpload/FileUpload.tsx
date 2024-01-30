@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ref, getStorage, uploadBytesResumable } from "firebase/storage";
 import { getDatabase, ref as refDb, onValue, set } from "firebase/database";
 import "./FileUpload.scss";
+import CampaignMultiSelect from "../CampaignMultiSelect/CampaignMultiSelect";
 
 type FileUploadProps = {
   userList: Array<string>;
@@ -12,8 +13,6 @@ function FileUpload(props: FileUploadProps) {
   const [fileUploaded, setFileUploaded] = useState<any>(null);
   const [currentFile, setCurrentFile] = useState<any>(null);
   const [folder, setFolder] = useState<string>("");
-  const [campaigns, setCampaigns] = useState<Array<any>>([]);
-  const [selectedCampaign, setSelectedCampaign] = useState<string>("");
 
   const db = getDatabase();
 
@@ -22,20 +21,8 @@ function FileUpload(props: FileUploadProps) {
   }
 
   useEffect(() => {
-    const query = refDb(db, "campaigns");
-    onValue(query, (snapshot) => {
-      const data = snapshot.val();
-      setCampaigns(data.campaigns);
-    });
-  }, []);
-
-  useEffect(() => {
     setFolder(props.userList[0]);
   }, [props.userList]);
-
-  useEffect(() => {
-    setSelectedCampaign(campaigns[0]);
-  }, [campaigns]);
 
   useEffect(() => {
     if (!!fileUploaded) {
@@ -46,9 +33,9 @@ function FileUpload(props: FileUploadProps) {
       );
       uploadBytesResumable(userUploadRef, fileUploaded);
       const query = refDb(db, "/files/" + props.userID);
-      set(query, {
-        files: [{ campaign: selectedCampaign, file: userUploadRef.name }],
-      });
+      // set(query, {
+      //   files: [{ campaign: selectedCampaign, file: userUploadRef.name }],
+      // });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileUploaded]);
@@ -67,21 +54,7 @@ function FileUpload(props: FileUploadProps) {
           </select>
         </div>
       )}
-      {campaigns?.length > 1 && (
-        <div>
-          <label htmlFor="campaign">Campanha:</label>
-          <select
-            name="campaign"
-            onChange={(e) => setSelectedCampaign(e.target.value)}
-          >
-            {campaigns.map((campaign, index) => (
-              <option key={index} value={campaign}>
-                {campaign}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+      <CampaignMultiSelect />
       <div>
         <label htmlFor="file">Arquivo</label>
         <input name="file" type="file" onChange={(e) => setCurrentFile(e)} />

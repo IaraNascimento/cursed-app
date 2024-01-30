@@ -19,6 +19,7 @@ type FilesListProps = {
 
 function FilesList(props: FilesListProps) {
   const [files, setFiles] = useState<Array<any>>([]);
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [fileCampaignRelations, setFileCampaignRelations] = useState<
     Array<any>
   >([]);
@@ -55,6 +56,10 @@ function FilesList(props: FilesListProps) {
     return campaign;
   }
 
+  function updateFile(file: any) {
+    setIsUpdating(!isUpdating);
+  }
+
   return (
     <table>
       <tr>
@@ -65,10 +70,19 @@ function FilesList(props: FilesListProps) {
       {files?.map((file, index) => (
         <tr key={index}>
           <td>{file.name}</td>
-          <td>{findFileCampaignRelation(file.name)}</td>
+          <td>
+            {isUpdating ? "batatinha" : findFileCampaignRelation(file.name)}
+          </td>
           <td className="action-col">
             <button className="secondary" onClick={() => downloadFile(file)}>
               <FontAwesomeIcon icon={icon({ name: "eye" })} />
+            </button>
+            <button className="secondary" onClick={() => updateFile(file)}>
+              {isUpdating ? (
+                <FontAwesomeIcon icon={icon({ name: "check" })} />
+              ) : (
+                <FontAwesomeIcon icon={icon({ name: "pencil" })} />
+              )}
             </button>
             <button className="secondary" onClick={() => deleteFile(file)}>
               <FontAwesomeIcon icon={icon({ name: "trash" })} />

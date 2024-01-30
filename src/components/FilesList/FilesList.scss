@@ -1,38 +1,47 @@
 @import "../../shared/verbose";
 
 table {
-    border-collapse: collapse;
-    overflow-x: auto;
-    
-    @media (max-width: 580px) {
-        display: inline-block;
-        width: calc(100vw - 32px);
-    }
+  border-collapse: collapse;
+  overflow-x: auto;
 
-    @media (min-width: 581px) and (max-width: 996px) {
-        display: inline-table;
-    }
+  @media (max-width: 580px) {
+    display: inline-block;
+    width: calc(100vw - 32px);
+  }
 
-    @media (min-width: 997px) {
-        display: table;
-        width: 100%;
-    }
+  @media (min-width: 581px) and (max-width: 996px) {
+    display: inline-table;
+  }
 
-    & > :nth-child(even) {
-        background-color: $background-odd-row;
-    }
+  @media (min-width: 997px) {
+    display: table;
+    width: 100%;
+  }
+
+  & > :nth-child(even) {
+    background-color: $background-odd-row;
+  }
 }
-  
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-    word-wrap: break-word;
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  word-wrap: break-word;
 }
 
 .action-col {
-    width: 120px;
-    & > :first-child {
-        margin-right: 8px;
-    }
-} 
+  width: 120px;
+  & > :first-child {
+    margin-right: 8px;
+  }
+
+  & > :last-child {
+    margin-left: 8px;
+  }
+
+  & > * {
+    padding: 8px !important;
+  }
+}
