@@ -48,19 +48,20 @@ function FilesList(props: FilesListProps) {
     });
   }, []);
 
-  function findFileCampaignRelation(fileName: any) {
-    let campaigns: Array<string> = [];
-    fileCampaignRelations.forEach((relation) => {
-      if (relation.file === fileName) campaigns = relation.campaigns;
-    });
+  // function findFileCampaignRelation(fileName: any) {
+  //   let campaigns: Array<string> = [];
+  //   console.log(fileCampaignRelations);
+  //   fileCampaignRelations.forEach((relation) => {
+  //     if (relation.file.includes(fileName)) campaigns = relation.campaigns;
+  //   });
 
-    let returnString = "";
-    campaigns.forEach((campaign, index) => {
-      if (index === 0) returnString = campaign;
-      else returnString += " - " + campaign;
-    });
-    return returnString;
-  }
+  //   let returnString = "";
+  //   campaigns.forEach((campaign, index) => {
+  //     if (index === 0) returnString = campaign;
+  //     else returnString += " - " + campaign;
+  //   });
+  //   return returnString;
+  // }
 
   function updateFile(file: any) {
     setIsUpdating(!isUpdating);
@@ -77,7 +78,7 @@ function FilesList(props: FilesListProps) {
         <tr key={index}>
           <td>{file.name}</td>
           <td>
-            {isUpdating ? "batatinha" : findFileCampaignRelation(file.name)}
+            {/* {isUpdating ? "batatinha" : findFileCampaignRelation(file.name)} */}
           </td>
           <td className="action-col">
             <button className="secondary" onClick={() => downloadFile(file)}>
