@@ -7,10 +7,11 @@ import {
   ref,
 } from "firebase/storage";
 import FileSaver from "file-saver";
-import { getDatabase, ref as refDb, onValue } from "firebase/database";
+import { getDatabase, ref as refDb, onValue, set } from "firebase/database";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./FilesList.scss";
+import CampaignMultiSelect from "../CampaignMultiSelect/CampaignMultiSelect";
 
 type FilesListProps = {
   email: string;
@@ -48,23 +49,40 @@ function FilesList(props: FilesListProps) {
     });
   }, []);
 
-  // function findFileCampaignRelation(fileName: any) {
-  //   let campaigns: Array<string> = [];
-  //   console.log(fileCampaignRelations);
-  //   fileCampaignRelations.forEach((relation) => {
-  //     if (relation.file.includes(fileName)) campaigns = relation.campaigns;
-  //   });
+  function findFileCampaignRelation(fileName: any) {
+    let campaigns: Array<string> = [];
+    fileCampaignRelations.forEach((relation) => {
+      if (relation.file === props.userID + "/" + fileName)
+        campaigns = relation.campaigns || [];
+    });
 
-  //   let returnString = "";
-  //   campaigns.forEach((campaign, index) => {
-  //     if (index === 0) returnString = campaign;
-  //     else returnString += " - " + campaign;
-  //   });
-  //   return returnString;
-  // }
+    return campaigns.map((campaign) => (
+      <div className="bullet-campaign">{campaign}</div>
+    ));
+  }
 
-  function updateFile(file: any) {
+  function updateFile(file: any, index: number) {
     setIsUpdating(!isUpdating);
+
+    if (isUpdating) {
+      const updateQuery = refDb(db, "/files/" + props.userID);
+      const userUploadRef = ref(storage, "/" + props.email + "/" + file.name);
+
+      const selectedCampaigns = JSON.parse(
+        localStorage.getItem(
+          "selectedCampaigns-" + props.userID + "-" + index
+        ) as string
+      );
+      console.log(selectedCampaigns);
+      set(updateQuery, {
+        files: [
+          {
+            campaigns: selectedCampaigns,
+            file: props.userID + "/" + userUploadRef.name,
+          },
+        ],
+      });
+    }
   }
 
   return (
@@ -78,13 +96,23 @@ function FilesList(props: FilesListProps) {
         <tr key={index}>
           <td>{file.name}</td>
           <td>
-            {/* {isUpdating ? "batatinha" : findFileCampaignRelation(file.name)} */}
+            {isUpdating ? (
+              <CampaignMultiSelect
+                id={props.userID + "-" + index}
+                hideLabel={true}
+              />
+            ) : (
+              findFileCampaignRelation(file.name)
+            )}
           </td>
           <td className="action-col">
             <button className="secondary" onClick={() => downloadFile(file)}>
               <FontAwesomeIcon icon={icon({ name: "eye" })} />
             </button>
-            <button className="secondary" onClick={() => updateFile(file)}>
+            <button
+              className="secondary"
+              onClick={() => updateFile(file, index)}
+            >
               {isUpdating ? (
                 <FontAwesomeIcon icon={icon({ name: "check" })} />
               ) : (

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 type CampaignMultiSelectProps = {
   id: string;
+  hideLabel?: boolean;
 };
 
 function CampaignMultiSelect(props: CampaignMultiSelectProps) {
@@ -25,15 +26,12 @@ function CampaignMultiSelect(props: CampaignMultiSelectProps) {
     );
   }, [selectedCampaigns]);
 
-  function handleSelect(selected: string) {
-    const tempSelectedCampaigns = JSON.parse(JSON.stringify(selectedCampaigns));
+  function handleSelect(optionArray: any) {
+    const tempSelectedCampaigns: Array<string> = [];
 
-    if (tempSelectedCampaigns.includes(selected)) {
-      const index = tempSelectedCampaigns.indexOf(selected);
-      tempSelectedCampaigns.splice(index, 1);
-    } else {
-      tempSelectedCampaigns.push(selected);
-    }
+    Array.from(optionArray).map((option: any) => {
+      if (option.selected) tempSelectedCampaigns.push(option.value);
+    });
 
     setSelectedCampaigns(tempSelectedCampaigns);
   }
@@ -42,10 +40,10 @@ function CampaignMultiSelect(props: CampaignMultiSelectProps) {
     <>
       {campaigns?.length > 1 && (
         <div>
-          <label htmlFor="campaign">Campanha:</label>
+          {!props.hideLabel && <label htmlFor="campaign">Campanha:</label>}
           <select
             name="campaign"
-            onChange={(e) => handleSelect(e.target.value)}
+            onChange={(e) => handleSelect(e.target.childNodes)}
             multiple
           >
             {campaigns.map((campaign, index) => (
