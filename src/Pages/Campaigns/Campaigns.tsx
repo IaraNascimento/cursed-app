@@ -10,7 +10,6 @@ function Campaigns() {
   return (
     <>
       <Menu />
-      <Logout />
       <h2 className="title">Campanhas</h2>
       <CampaignCreate />
       <CampaignList />

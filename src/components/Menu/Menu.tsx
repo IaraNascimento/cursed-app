@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getDatabase, ref as refDb, onValue, set } from "firebase/database";
+import Logout from "../../Pages/Logout/Logout";
 
 function Menu() {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ function Menu() {
           </button>
         </>
       )}
+      <Logout />
     </>
   );
 }

@@ -36,7 +36,6 @@ function Files() {
   return (
     <>
       <Menu />
-      <Logout />
       <h1 className="title">Arquivos</h1>
       <FileUpload userList={users} userID={userID} />
       {users.map((user) => (

@@ -10,7 +10,6 @@ function Users() {
   return (
     <>
       <Menu />
-      <Logout />
       <h2 className="title">Usuários</h2>
       <UserCreate />
       <UsersList />
