@@ -1,7 +1,11 @@
 import { getDatabase, onValue, ref } from "@firebase/database";
 import { useEffect, useState } from "react";
 
-function CampaignMultiSelect() {
+type CampaignMultiSelectProps = {
+  id: string;
+};
+
+function CampaignMultiSelect(props: CampaignMultiSelectProps) {
   const [campaigns, setCampaigns] = useState<Array<any>>([]);
   const [selectedCampaigns, setSelectedCampaigns] = useState<Array<string>>([]);
   const db = getDatabase();
@@ -14,7 +18,12 @@ function CampaignMultiSelect() {
     });
   }, []);
 
-  useEffect(() => {}, [selectedCampaigns]);
+  useEffect(() => {
+    localStorage.setItem(
+      "selectedCampaigns-" + props.id,
+      JSON.stringify(selectedCampaigns)
+    );
+  }, [selectedCampaigns]);
 
   function handleSelect(selected: string) {
     const tempSelectedCampaigns = JSON.parse(JSON.stringify(selectedCampaigns));

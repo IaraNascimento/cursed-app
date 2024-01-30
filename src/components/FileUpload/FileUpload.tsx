@@ -33,9 +33,13 @@ function FileUpload(props: FileUploadProps) {
       );
       uploadBytesResumable(userUploadRef, fileUploaded);
       const query = refDb(db, "/files/" + props.userID);
-      // set(query, {
-      //   files: [{ campaign: selectedCampaign, file: userUploadRef.name }],
-      // });
+      const selectedCampaigns = JSON.parse(
+        localStorage.getItem("selectedCampaigns-upload-file") as string
+      );
+      console.log(selectedCampaigns);
+      set(query, {
+        files: [{ campaigns: selectedCampaigns, file: userUploadRef.name }],
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileUploaded]);
@@ -54,7 +58,7 @@ function FileUpload(props: FileUploadProps) {
           </select>
         </div>
       )}
-      <CampaignMultiSelect />
+      <CampaignMultiSelect id="upload-file" />
       <div>
         <label htmlFor="file">Arquivo</label>
         <input name="file" type="file" onChange={(e) => setCurrentFile(e)} />

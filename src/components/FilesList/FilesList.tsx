@@ -49,11 +49,17 @@ function FilesList(props: FilesListProps) {
   }, []);
 
   function findFileCampaignRelation(fileName: any) {
-    let campaign = "";
+    let campaigns: Array<string> = [];
     fileCampaignRelations.forEach((relation) => {
-      if (relation.file === fileName) campaign = relation.campaign;
+      if (relation.file === fileName) campaigns = relation.campaigns;
     });
-    return campaign;
+
+    let returnString = "";
+    campaigns.forEach((campaign, index) => {
+      if (index === 0) returnString = campaign;
+      else returnString += " - " + campaign;
+    });
+    return returnString;
   }
 
   function updateFile(file: any) {
